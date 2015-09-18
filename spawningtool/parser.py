@@ -361,7 +361,6 @@ def parse_events(replay, cutoff_time, parsed_data, cache_path=None, include_map_
         if event.name == 'PlayerStatsEvent' and event.pid in parsed_data['players']:
             parsed_data['players'][event.pid]['supply'].append(
                 [event.frame, int(event.food_used)])
-        elif event.name == 'PlayerStatsEvent':
             income_data = {}
             income_data["frame"] = event.frame
             income_data["mineral_collection_rate"] = event.minerals_collection_rate
@@ -465,6 +464,7 @@ def parse_replay(replay_file, cutoff_time=None, cache_dir=None, include_map_deta
                 'uid': player.toon_id,  # naming change from sc2reader
                 'region': player.region,
                 'supply': [[0, 6]],
+                'income': [],
                 'team': player.team.number,
                 'clock_position': None,
             }) for key, player in replay.player.items()
