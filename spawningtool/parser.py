@@ -361,6 +361,12 @@ def parse_events(replay, cutoff_time, parsed_data, cache_path=None, include_map_
         if event.name == 'PlayerStatsEvent' and event.pid in parsed_data['players']:
             parsed_data['players'][event.pid]['supply'].append(
                 [event.frame, int(event.food_used)])
+        elif event.name == 'PlayerStatsEvent':
+            income_data = {}
+            income_data["frame"] = event.frame
+            income_data["mineral_collection_rate"] = event.minerals_collection_rate
+            income_data["vespene_collection_rate"] = event.vespene_collection_rate
+            parsed_data['players'][event.pid]['income'].append(income_data)
         elif event.name == 'UnitBornEvent':
             unit_born_event(builds, event, parsed_data)
         elif event.name == 'UnitInitEvent':
